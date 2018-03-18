@@ -93,7 +93,33 @@ if(isset($_POST['btn_action']))
 		}
 		echo json_encode($output);
 	}
+	if($_POST['btn_action'] == "add_customer")
+	{
+		if($_POST['status']=='active'){
+		$query = "
+		SELECT * FROM customer WHERE customer_id = :customer_id
+		";
+		$statement = $connect->prepare($query);
+		$statement->execute(
+			array(
+				':customer_id' 	=> 	$_POST["customer_id"]
+			)
+		);
+		$result = $statement->fetchAll();
+		$output = array();
+		
 
+		foreach ($result as $row) {
+			$output['customer_name'] = $row['customer_name'];
+			$output['customer_address']= $row['customer_address'];
+		}
+		echo json_encode($output);
+		}
+		else{
+			echo 'The customer status is inactive .. ';
+		}
+		
+	}
 	if($_POST['btn_action'] == 'Edit')
 	{
 		$query = "

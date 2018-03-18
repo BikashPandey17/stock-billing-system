@@ -106,7 +106,7 @@ include('header.php');
                 </form>
             </div>
         </div>
-            <div id="orderModal" class="modal fade">
+        <div id="orderModal" class="modal fade">
         <div class="modal-dialog">
             <form method="post" id="order_form">
                 <div class="modal-content">
@@ -149,7 +149,7 @@ include('header.php');
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="inventory_order_id" id="inventory_order_id" />
-                        <input type="hidden" name="btn_action" id="btn_action" />
+                        <input type="hidden" name="btn_action" id="btn_action" value="Add"/>
                         <input type="submit" name="action" id="action" class="btn btn-info" value="Add" />
                     </div>
                 </div>
@@ -158,7 +158,7 @@ include('header.php');
 
     </div>
 
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
 
     $('#add_button').click(function(){
@@ -166,7 +166,7 @@ $(document).ready(function(){
         $('#customer_form')[0].reset();
         $('.modal-title').html("<i class='fa fa-plus'></i> Add Customer");
         $('#action').val('Add');
-        $('#btn_action').val('Add');
+        $('#btn_action').val("Add");
     });
 
     $(document).on('submit','#customer_form', function(event){
@@ -262,10 +262,87 @@ $(document).ready(function(){
             return false;
         }
     });
-
     $(document).on('click','.order',function(){
-        var customer_id = $
+        var customer_id = $(this).attr('id');
+        var status = $(this).data("status");
+        var btn_action="add_customer";
+        $.ajax({
+            url:"customer_action.php",
+                method:"POST",
+                data:{customer_id:customer_id, status:status, btn_action:btn_action},
+                dataType:"json",
+                success:function(data){
+                    $('#orderModal').modal('show');
+                    $('#order_form')[0].reset();
+                    $('.modal-title').html("<i class='fa fa-plus'></i> Create Order");
+                    $('#inventory_order_name').val(data.customer_name);
+                    $('#inventory_order_address').val(data.customer_address);
+                    $('#span_product_details').html('');
+                    add_product_row();
+                    $('#action').attr('Add');
+                    $('#btn_action').val('Add');
+                }
+        });
+
     });
+    
+    function add_product_row(count = '')
+        {
+            var html = '';
+            html += '<span id="row'+count+'"><div class="row">';
+            html += '<div class="col-md-8">';
+            html += '<select name="product_id[]" id="product_id'+count+'" class="form-control selectpicker" data-live-search="true" required>';
+            html += '<?php echo fill_product_list($connect); ?>';
+            html += '</select><input type="hidden" name="hidden_product_id[]" id="hidden_product_id'+count+'" />';
+            html += '</div>';
+            html += '<div class="col-md-3">';
+            html += '<input type="text" name="quantity[]" class="form-control" required />';
+            html += '</div>';
+            html += '<div class="col-md-1">';
+            if(count == '')
+            {
+                html += '<button type="button" name="add_more" id="add_more" class="btn btn-success btn-xs">+</button>';
+            }
+            else
+            {
+                html += '<button type="button" name="remove" id="'+count+'" class="btn btn-danger btn-xs remove">-</button>';
+            }
+            html += '</div>';
+            html += '</div></div><br /></span>';
+            $('#span_product_details').append(html);
+
+            $('.selectpicker').selectpicker();
+        }
+
+        var count = 0;
+
+        $(document).on('click', '#add_more', function(){
+            count = count + 1;
+            add_product_row(count);
+        });
+        $(document).on('click', '.remove', function(){
+            var row_no = $(this).attr("id");
+            $('#row'+row_no).remove();
+        });
+
+       
+        $(document).on('submit', '#order_form', function(event){
+            event.preventDefault();
+            $('#action').attr('disabled', 'disabled');
+            var form_data = $(this).serialize();
+            $.ajax({
+                url:"order_action.php",
+                method:"POST",
+                data:form_data,
+                success:function(data){
+                    $('#order_form')[0].reset();
+                    $('#orderModal').modal('hide');
+                    $('#alert_action').fadeIn().html('<div class="alert alert-success">'+data+'</div>');
+                    $('#action').attr('disabled', false);
+                    customerdataTable.ajax.reload();
+                }
+            });
+        });
 });
 </script>
 <?php 
