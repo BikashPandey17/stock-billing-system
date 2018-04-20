@@ -10,15 +10,13 @@ $query = '';
 $output = array();
 $query .= "
 	SELECT * FROM product 
-INNER JOIN brand ON brand.brand_id = product.brand_id
 INNER JOIN category ON category.category_id = product.category_id 
 INNER JOIN user_details ON user_details.user_id = product.product_enter_by 
 ";
 
 if(isset($_POST["search"]["value"]))
 {
-	$query .= 'WHERE brand.brand_name LIKE "%'.$_POST["search"]["value"].'%" ';
-	$query .= 'OR category.category_name LIKE "%'.$_POST["search"]["value"].'%" ';
+	$query .= 'WHERE category.category_name LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR product.product_name LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR product.product_quantity LIKE "%'.$_POST["search"]["value"].'%" ';
 	$query .= 'OR user_details.user_name LIKE "%'.$_POST["search"]["value"].'%" ';
@@ -57,7 +55,7 @@ foreach($result as $row)
 	$sub_array = array();
 	$sub_array[] = $row['product_id'];
 	$sub_array[] = $row['category_name'];
-	$sub_array[] = $row['brand_name'];
+	
 	$sub_array[] = $row['product_name'];
 	$sub_array[] = available_product_quantity($connect, $row["product_id"]) . ' ' . $row["product_unit"];
 	$sub_array[] = $row['user_name'];

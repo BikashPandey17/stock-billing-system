@@ -8,12 +8,13 @@ include('function.php');
 
 
 
-
-
 if(isset($_POST['btn_action']))
 {
 	if($_POST['btn_action'] == 'Add')
 	{
+		echo '<script language="javascript">';
+		echo 'console.log("Inside Add")';
+		echo '</script>';
 		$query = "
 		INSERT INTO inventory_order (user_id, inventory_order_total, inventory_order_date, inventory_order_name, inventory_order_address, payment_status, inventory_order_status, inventory_order_created_date) 
 		VALUES (:user_id, :inventory_order_total, :inventory_order_date, :inventory_order_name, :inventory_order_address, :payment_status, :inventory_order_status, :inventory_order_created_date)
@@ -76,7 +77,7 @@ if(isset($_POST['btn_action']))
 			}
 		}
 	}
-
+	
 	if($_POST['btn_action'] == 'fetch_single')
 	{
 		// echo '<script language="javascript">';

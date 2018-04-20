@@ -39,7 +39,6 @@ include('header.php');
                                 <thead><tr>
                                     <th>ID</th>
                                     <th>Category</th>
-                                    <th>Brand</th>
                                     <th>Product Name</th>
                                     <th>Quantity</th>
                                     <th>Enter By</th>
@@ -69,12 +68,6 @@ include('header.php');
                                 <select name="category_id" id="category_id" class="form-control" required>
                                     <option value="">Select Category</option>
                                     <?php echo fill_category_list($connect);?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Select Brand</label>
-                                <select name="brand_id" id="brand_id" class="form-control" required>
-                                    <option value="">Select Brand</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -162,7 +155,7 @@ $(document).ready(function(){
         },
         "columnDefs":[
             {
-                "targets":[7, 8, 9],
+                "targets":[6, 7, 8],
                 "orderable":false,
             },
         ],

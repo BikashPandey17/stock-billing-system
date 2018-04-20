@@ -18,7 +18,7 @@ if(isset($_POST['btn_action']))
 				':user_email'		=>	$_POST["user_email"],
 				':user_password'	=>	password_hash($_POST["user_password"], PASSWORD_DEFAULT),
 				':user_name'		=>	$_POST["user_name"],
-				':user_type'		=>	'user',
+				':user_type'		=>	$_POST["user_type"],
 				':user_status'		=>	'active'
 			)
 		);
@@ -44,6 +44,7 @@ if(isset($_POST['btn_action']))
 		{
 			$output['user_email'] = $row['user_email'];
 			$output['user_name'] = $row['user_name'];
+			$output['user_type'] = $row['user_type'];
 		}
 		echo json_encode($output);
 	}
@@ -55,6 +56,7 @@ if(isset($_POST['btn_action']))
 			UPDATE user_details SET 
 				user_name = '".$_POST["user_name"]."', 
 				user_email = '".$_POST["user_email"]."',
+				user_type = '".$_POST["user_type"]."',
 				user_password = '".password_hash($_POST["user_password"], PASSWORD_DEFAULT)."' 
 				WHERE user_id = '".$_POST["user_id"]."'
 			";
@@ -65,6 +67,7 @@ if(isset($_POST['btn_action']))
 			UPDATE user_details SET 
 				user_name = '".$_POST["user_name"]."', 
 				user_email = '".$_POST["user_email"]."'
+				user_type = '".$_POST["user_type"]."',
 				WHERE user_id = '".$_POST["user_id"]."'
 			";
 		}

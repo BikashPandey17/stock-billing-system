@@ -70,6 +70,14 @@ include('header.php');
 							<input type="email" name="user_email" id="user_email" class="form-control" required />
 						</div>
 						<div class="form-group">
+							<label>Select Type of User</label>
+							<select name="user_type" id="user_type" class="form-control" required>
+								<option value="">Select Type of User</option>
+								<option value="master">Master</option>
+								<option value="user">User</option>
+							</select>
+						</div>
+						<div class="form-group">
 							<label>Enter User Password</label>
 							<input type="password" name="user_password" id="user_password" class="form-control" required />
 						</div>
@@ -85,7 +93,7 @@ include('header.php');
 
         	</div>
         </div>
-<script>
+<script> 
 $(document).ready(function(){
 
 	$('#add_button').click(function(){
@@ -144,6 +152,7 @@ $(document).ready(function(){
 				$('#userModal').modal('show');
 				$('#user_name').val(data.user_name);
 				$('#user_email').val(data.user_email);
+				$('#user_type').val(data.user_type);
 				$('.modal-title').html("<i class='fa fa-pencil-square-o'></i> Edit User");
 				$('#user_id').val(user_id);
 				$('#action').val('Edit');

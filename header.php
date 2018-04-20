@@ -30,7 +30,6 @@
 					?>
 						<li><a href="user.php">User</a></li>
 						<li><a href="category.php">Category</a></li>
-						<li><a href="brand.php">Brand</a></li>
 						<li><a href="product.php">Product</a></li>
 					<?php
 					}

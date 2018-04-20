@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2018 at 08:27 PM
+-- Generation Time: Mar 30, 2018 at 04:07 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -21,48 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `testing2`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `brand`
---
-
-CREATE TABLE `brand` (
-  `brand_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `brand_name` varchar(250) NOT NULL,
-  `brand_status` enum('active','inactive') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `brand`
---
-
-INSERT INTO `brand` (`brand_id`, `category_id`, `brand_name`, `brand_status`) VALUES
-(1, 1, 'Finibus', 'active'),
-(2, 1, 'Lorem', 'active'),
-(3, 1, 'Ipsum', 'active'),
-(4, 8, 'Dolor', 'active'),
-(5, 8, 'Amet', 'active'),
-(6, 6, 'Aliquam', 'active'),
-(7, 6, 'Maximus', 'active'),
-(8, 10, 'Venenatis', 'active'),
-(9, 10, 'Ligula', 'active'),
-(10, 3, 'Vitae', 'active'),
-(11, 3, 'Auctor', 'active'),
-(12, 5, 'Luctus', 'active'),
-(13, 5, 'Justo', 'active'),
-(14, 2, 'Phasellus', 'active'),
-(15, 2, 'Viverra', 'active'),
-(16, 4, 'Elementum', 'active'),
-(17, 4, 'Odio', 'active'),
-(18, 7, 'Tellus', 'active'),
-(19, 7, 'Curabitur', 'active'),
-(20, 9, 'Commodo', 'active'),
-(21, 9, 'Nullam', 'active'),
-(22, 11, 'Quisques', 'active'),
-(24, 11, 'XYZ', 'active');
 
 -- --------------------------------------------------------
 
@@ -115,7 +73,8 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_address`, `customer_status`, `customer_enter_by`) VALUES
 (3, 'Bikash Pandey', 'Serampore', 'active', 1),
-(5, 'Abdul Mannan', 'Hooghly, Serampore', 'active', 1);
+(5, 'Abdul Mannan', 'Hooghly, Serampore', 'active', 1),
+(6, 'Test Man', 'lol address', 'active', 1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +117,12 @@ INSERT INTO `inventory_order` (`inventory_order_id`, `user_id`, `inventory_order
 (16, 2, 2700.00, '2017-11-08', 'Eric Johnson', '616 Devils Hill Road\r\nJackson, MS 39213', 'cash', 'active', '2017-11-08'),
 (17, 1, 5615.20, '2017-11-09', 'Doris Oliver', '2992 Sycamore Fork Road Hopkins, MN 55343', 'cash', 'active', '2017-11-09'),
 (26, 1, 2278.50, '2017-11-27', 'Janet Richardsons', '4799 Ryder Avenue Everett, WA 98210', 'credit', 'active', '2017-11-27'),
-(27, 1, 837.60, '2018-02-18', 'Bikash Pandey', '29 Gopinath Saha Street Serampore hooghly', 'credit', 'active', '2018-02-18');
+(27, 1, 837.60, '2018-02-18', 'Bikash Pandey', '29 Gopinath Saha Street Serampore hooghly', 'credit', 'active', '2018-02-18'),
+(28, 1, 95.20, '2018-03-18', 'abdul mannan', 'gfufufiutftff', 'cash', 'active', '2018-03-18'),
+(29, 1, 285.60, '2018-03-18', 'Abdul Mannan', 'Hooghly, Serampore', 'cash', 'active', '2018-03-18'),
+(30, 1, 571.20, '2018-03-18', 'Abdul Mannan', 'Hooghly, Serampore', 'cash', 'active', '2018-03-18'),
+(31, 1, 8691.20, '2018-03-19', 'Test Man', 'lol address', 'cash', 'active', '2018-03-18'),
+(32, 11, 571.20, '2018-03-25', 'Bikash Pandey', 'Serampore', 'cash', 'active', '2018-03-24');
 
 -- --------------------------------------------------------
 
@@ -231,7 +195,14 @@ INSERT INTO `inventory_order_product` (`inventory_order_product_id`, `inventory_
 (79, 26, 16, 6, 175.00, 5.00),
 (80, 26, 7, 5, 210.00, 12.00),
 (82, 27, 5, 2, 240.00, 15.00),
-(83, 27, 11, 3, 85.00, 12.00);
+(83, 27, 11, 3, 85.00, 12.00),
+(84, 28, 11, 1, 85.00, 12.00),
+(85, 29, 11, 3, 85.00, 12.00),
+(86, 30, 11, 6, 85.00, 12.00),
+(101, 32, 11, 6, 85.00, 12.00),
+(164, 31, 11, 2, 85.00, 12.00),
+(165, 31, 3, 9, 800.00, 5.00),
+(166, 31, 7, 4, 210.00, 12.00);
 
 -- --------------------------------------------------------
 
@@ -242,7 +213,6 @@ INSERT INTO `inventory_order_product` (`inventory_order_product_id`, `inventory_
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `brand_id` int(11) NOT NULL,
   `product_name` varchar(300) NOT NULL,
   `product_description` text NOT NULL,
   `product_quantity` int(11) NOT NULL,
@@ -259,29 +229,29 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `category_id`, `brand_id`, `product_name`, `product_description`, `product_quantity`, `product_unit`, `product_base_price`, `product_tax`, `product_minimum_order`, `product_enter_by`, `product_status`, `product_date`) VALUES
-(1, 1, 1, '4W LED Bulb', 'Base Type B22, E27\r\nBulb Material Aluminium\r\nItem Width 5 (cm)\r\nItem Height 10 (cm)\r\nItem Weight  0.07 (kg)', 100, 'Nos', 141.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(2, 1, 3, '17W B22 LED Bulb', 'Item Height  14.2 (cm)\r\nColor Temperature (Kelvin) 6500\r\nItem Weight 0.19 (kg)\r\nBulb Material  Aluminium\r\nBase Color Aluminium\r\nVoltage  240\r\nUsages Household, Commercial, Kitchen', 150, 'Nos', 350.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(3, 8, 5, '18W LED Ceiling Light', 'Round Ceiling Light 18w', 75, 'Nos', 800.00, '5.00', 0.00, 1, 'active', '2017-11-08'),
-(4, 8, 4, 'Round LED Ceiling Light', 'Relying on our expertise in this domain, we are into offering Round LED Ceiling Light.  ', 50, 'Nos', 550.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(5, 6, 6, '7W LED Concealed Light', 'Dimension \'3\" \'\r\n50000 hours burning life\r\ncost effective\r\nhigh quality led', 85, 'Nos', 240.00, '15.00', 0.00, 1, 'active', '2017-11-08'),
-(6, 6, 7, '9w LED Concealed Light', 'dimension \'3\" \'\r\n50000 hours burning life\r\ncost effective\r\nhigh quality led', 65, 'Nos', 250.00, '15.00', 0.00, 1, 'active', '2017-11-08'),
-(7, 10, 9, '24W Street Light Led Driver', 'Dc Voltage 36v\r\nRated Current  600ma\r\nRated Power  22w', 120, 'Nos', 210.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(8, 10, 8, 'BP1601 ICs', 'Backed by immense industry-experience & latest designing techniques, we are engaged in providing BP1601 ICs.', 200, 'Nos', 15.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
-(9, 3, 11, '5W LED Square Downlight', 'Wattage: 5 Watt\r\nInput Voltage: 150V to 265V, 50/60Hz\r\nLumens: 500 lumen (approx)\r\nPower Factor: 0.90pf', 50, 'Nos', 400.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(10, 3, 10, '10W LED Square Downlight', 'Wattage: 10 Watt\r\nInput Voltage: 150V to 265V, 50/60Hz\r\nLumens: 1000 lumen (approx)\r\nPower Factor: 0.90pf', 40, 'Nos', 150.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
-(11, 5, 13, ' 9w Deluxe LED Lamp', 'Lighting Color  Cool Daylight\r\nBase Type  B22', 100, 'Nos', 85.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(12, 5, 12, '5w LED Lamp', 'Lighting Color  Cool Daylight\r\nBody Material  Aluminum\r\nBase Type B22', 75, 'Nos', 60.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(13, 2, 14, '15W Big LED Bay Light', 'Wattage: 15 Watt\r\nInput Voltage: 100V - 265V, 50/60Hz\r\nLumens: 1500 lumen (approx)\r\nPower Factor: 0.90pf', 60, 'Nos', 200.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
-(14, 2, 15, '15W Small LED Bay Light', 'Wattage: 15 Watt\r\nInput Voltage: 100V -265V, 50/60Hz\r\nLumens: 1500 lumen (approx)\r\nPower Factor: 0.90pf', 55, 'Nos', 250.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
-(15, 4, 16, '12W LED Panel Light', 'Body Material Aluminum\r\nLighting Type LED\r\nApplications Hotel, House, etc', 85, 'Nos', 125.00, '5.00', 0.00, 1, 'active', '2017-11-08'),
-(16, 4, 17, '15W LED Panel Light', 'IP Rating IP40\r\nBody Material Aluminum\r\nLighting Type LED', 40, 'Nos', 175.00, '5.00', 0.00, 1, 'active', '2017-11-08'),
-(17, 7, 19, '3W Round LED Spotlight', 'Lighting Color Cool White\r\nBody Material Aluminum\r\nCertification ISO\r\nInput Voltage(V) 12 V\r\nIP Rating IP33, IP40, IP44', 100, 'Nos', 60.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(18, 7, 18, '3W Square LED Spotlight', 'Lighting Color  Cool White\r\nBody Material Aluminum\r\nInput Voltage(V)  12 V\r\nIP Rating IP33, IP40', 85, 'Nos', 90.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
-(19, 9, 20, '18W LED Tube Light', 'Tube Base Type T5\r\nIP Rating IP66', 180, 'Nos', 120.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
-(20, 9, 21, '10W Ready Tube Light', 'Body Material  Aluminum, Ceramic\r\nPower  10W', 200, 'Nos', 100.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
-(21, 11, 22, '90W LED Flood Lights', 'Lighting Color  Cool White, Pure White, Warm White\r\nBody Material Ceramic, Chrome, Iron\r\nIP Rating  IP33, IP40, IP44, IP55, IP66', 20, 'Nos', 500.00, '18.00', 0.00, 1, 'active', '2017-11-09'),
-(23, 1, 3, '15 Watt LED Bulb', '15 Watt LED Bulb', 150, 'Nos', 30.00, '12.00', 0.00, 1, 'active', '2017-11-21');
+INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `product_description`, `product_quantity`, `product_unit`, `product_base_price`, `product_tax`, `product_minimum_order`, `product_enter_by`, `product_status`, `product_date`) VALUES
+(1, 1, '4W LED Bulb', 'Base Type  B22, E27\r\nBulb Material Aluminium\r\nItem Width 5 (cm)\r\nItem Height 10 (cm)\r\nItem Weight  0.07 (kg)', 100, 'Nos', 141.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(2, 1, '17W B22 LED Bulb', 'Item Height 14.2 (cm)\r\nColor Temperature (Kelvin) 6500\r\nItem Weight 0.19 (kg)\r\nBulb Material  Aluminium\r\nBase Color Aluminium\r\nVoltage  240\r\nUsages Household, Commercial, Kitchen', 150, 'Nos', 350.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(3, 8, '18W LED Ceiling Light', 'Round Ceiling Light 18w', 75, 'Nos', 800.00, '5.00', 0.00, 1, 'active', '2017-11-08'),
+(4, 8, 'Round LED Ceiling Light', 'Relying on our expertise in this domain, we are into offering Round LED Ceiling Light. ', 50, 'Nos', 550.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(5, 6, '7W LED Concealed Light', 'Dimension \'3\" \'\r\n50000 hours burning life\r\ncost effective\r\nhigh quality led', 85, 'Nos', 240.00, '15.00', 0.00, 1, 'active', '2017-11-08'),
+(6, 6, '9w LED Concealed Light', 'dimension \'3\" \'\r\n50000 hours burning life\r\ncost effective\r\nhigh quality led', 65, 'Nos', 250.00, '15.00', 0.00, 1, 'active', '2017-11-08'),
+(7, 10, '24W Street Light Led Driver', 'Dc Voltage  36v\r\nRated Current  600ma\r\nRated Power  22w', 120, 'Nos', 210.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(8, 10, 'BP1601 ICs', 'Backed by immense industry-experience & latest designing techniques, we are engaged in providing BP1601 ICs.', 200, 'Nos', 15.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
+(9, 3, '5W LED Square Downlight', 'Wattage: 5 Watt\r\nInput Voltage: 150V to 265V, 50/60Hz\r\nLumens: 500 lumen (approx)\r\nPower Factor: 0.90pf', 50, 'Nos', 400.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(10, 3, '10W LED Square Downlight', 'Wattage: 10 Watt\r\nInput Voltage: 150V to 265V, 50/60Hz\r\nLumens: 1000 lumen (approx)\r\nPower Factor: 0.90pf', 40, 'Nos', 150.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
+(11, 5, ' 9w Deluxe LED Lamp', 'Lighting Color  Cool Daylight\r\nBase Type  B22', 100, 'Nos', 85.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(12, 5, '5w LED Lamp', 'Lighting Color  Cool Daylight\r\nBody Material  Aluminum\r\nBase Type B22', 75, 'Nos', 60.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(13, 2, '15W Big LED Bay Light', 'Wattage: 15 Watt\r\nInput Voltage: 100V - 265V, 50/60Hz\r\nLumens: 1500 lumen (approx)\r\nPower Factor: 0.90pf', 60, 'Nos', 200.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
+(14, 2, '15W Small LED Bay Light', 'Wattage: 15 Watt\r\nInput Voltage: 100V -265V, 50/60Hz\r\nLumens: 1500 lumen (approx)\r\nPower Factor: 0.90pf', 55, 'Nos', 250.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
+(15, 4, '12W LED Panel Light', 'Body Material Aluminum\r\nLighting Type LED\r\nApplications Hotel, House, etc', 85, 'Nos', 125.00, '5.00', 0.00, 1, 'active', '2017-11-08'),
+(16, 4, '15W LED Panel Light', 'IP Rating IP40\r\nBody Material Aluminum\r\nLighting Type LED', 40, 'Nos', 175.00, '5.00', 0.00, 1, 'active', '2017-11-08'),
+(17, 7, '3W Round LED Spotlight', 'Lighting Color Cool White\r\nBody Material Aluminum\r\nCertification ISO\r\nInput Voltage(V) 12 V\r\nIP Rating IP33, IP40, IP44', 100, 'Nos', 60.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(18, 7, '3W Square LED Spotlight', 'Lighting Color  Cool White\r\nBody Material Aluminum\r\nInput Voltage(V)  12 V\r\nIP Rating IP33, IP40', 85, 'Nos', 90.00, '12.00', 0.00, 1, 'active', '2017-11-08'),
+(19, 9, '18W LED Tube Light', 'Tube Base Type T5\r\nIP Rating IP66', 180, 'Nos', 120.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
+(20, 9, '10W Ready Tube Light', 'Body Material  Aluminum, Ceramic\r\nPower  10W', 200, 'Nos', 100.00, '18.00', 0.00, 1, 'active', '2017-11-08'),
+(21, 11, '90W LED Flood Lights', 'Lighting Color  Cool White, Pure White, Warm White\r\nBody Material Ceramic, Chrome, Iron\r\nIP Rating  IP33, IP40, IP44, IP55, IP66', 20, 'Nos', 500.00, '18.00', 0.00, 1, 'active', '2017-11-09'),
+(23, 1, '15 Watt LED Bulb', '15 Watt LED Bulb', 150, 'Nos', 30.00, '12.00', 0.00, 1, 'active', '2017-11-21');
 
 -- --------------------------------------------------------
 
@@ -310,17 +280,12 @@ INSERT INTO `user_details` (`user_id`, `user_email`, `user_password`, `user_name
 (5, 'sarah_thomas@gmail.com', '$2y$10$s57SErOPlgkIZf1lxzlX3.hMt8LSSKaYig5rusxghDm7LW8RtQc/W', 'Sarah Thomas', 'user', 'Active'),
 (6, 'edna_william@gmail.com', '$2y$10$mfMXnH.TCmg5tlYRhqjxu.ILly8s9.qsLKOpyxgUl6h1fZt6x/B5C', 'Edna William', 'user', 'Active'),
 (8, 'john_parks@gmail.com', '$2y$10$WtsZUxIIz/N4NoIW0Db.pu0VfLWcPs6TyQ8SkpVHLDLGhdNOfALC.', 'John Park', 'user', 'Active'),
-(10, 'peter_parker@gmail.com', '$2y$10$GoQvEZNTWEibo0FPK7h57eA5UsNkXfIdex1deGsW/CFIY8zqxyu2S', 'Mark Parker', 'user', 'Active');
+(10, 'peter_parker@gmail.com', '$2y$10$GoQvEZNTWEibo0FPK7h57eA5UsNkXfIdex1deGsW/CFIY8zqxyu2S', 'Mark Parker', 'user', 'Active'),
+(11, 'user@user.com', '$2y$10$wFNyeouXg4PN8aFGuwb.VufSyzu/hUbD.vmylvxnoFRmUzXn5fxNq', 'random user', 'user', 'Active');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `brand`
---
-ALTER TABLE `brand`
-  ADD PRIMARY KEY (`brand_id`);
 
 --
 -- Indexes for table `category`
@@ -363,12 +328,6 @@ ALTER TABLE `user_details`
 --
 
 --
--- AUTO_INCREMENT for table `brand`
---
-ALTER TABLE `brand`
-  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -378,19 +337,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `inventory_order`
 --
 ALTER TABLE `inventory_order`
-  MODIFY `inventory_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `inventory_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `inventory_order_product`
 --
 ALTER TABLE `inventory_order_product`
-  MODIFY `inventory_order_product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `inventory_order_product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -402,7 +361,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
